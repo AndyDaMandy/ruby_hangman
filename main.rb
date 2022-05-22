@@ -9,20 +9,57 @@ class Words
             random = rand(10000)
             @word_choice = WORDS[random]
         end
+        @word_choice
     end
 end
 class Game
+    attr_reader :words, :word, :solution
+    attr_accessor :guess
     def initialize
         @words = Words.new
         @word = @words.word_gen
+        @solution = @word.split("")
+        @blanks = blanks_gen(@word, @guess)
+        @guess = []
+        @incorrect = []
+    end
+    def blanks_gen(wordle, guess)
+        arr = []
+        word_length = wordle.split("")
+        x = 0
+        until x == word_length.length do
+            arr.push("_")
+            x += 1
+        end
+        if guess.length > 0
+            #dosomething
+        end
+        arr.join(" ")
     end
     def view_word
-        puts @word_choice
+        puts @word
+        puts @solution
+    end
+    def game_play
+        x = 0
+        until x == 5
+            puts "Guess the word! You can only make 5 mistakes!"
+            alphabet = "abcdefghijklmnopqrstuvwxyz"
+            arr = alphabet.split('')
+            input = gets
+                if arr.include?(input.downcase) == false && @guess.include?(input.downcase)
+                    until arr.include?(input.downcase) && @guess.include?(input.downcase) == false
+                        puts "Error, you need to input a valid letter or something you haven't guessed yet!!"
+                        input = gets
+                    end
+                else
+                    puts "you picked: #{input}!"
+                end
+        end
     end
 end
 def play
     @game = Game.new
-    @game.word
     @game.view_word
 end
 play
