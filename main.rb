@@ -31,14 +31,10 @@ class Game
             arr.push("_")
             x += 1
         end
-        if guess.length > 0
-            #dosomething
-        end
         arr.join(" ")
     end
     def view_word
         puts @word
-        puts @solution
     end
     def game_play
         x = 0
@@ -46,20 +42,20 @@ class Game
             puts "Guess the word! You can only make 5 mistakes!"
             alphabet = "abcdefghijklmnopqrstuvwxyz"
             arr = alphabet.split('')
-            input = gets
-                if arr.include?(input.downcase) == false && @guess.include?(input.downcase)
+            input = gets.chomp
+                if arr.include?(input.downcase) == false || @guess.include?(input.downcase)
                     until arr.include?(input.downcase) && @guess.include?(input.downcase) == false
                         puts "Error, you need to input a valid letter or something you haven't guessed yet!!"
-                        input = gets
+                        input = gets.chomp
                     end
-                else
-                    puts "you picked: #{input}!"
                 end
+                puts "you picked: #{input}!"
         end
     end
 end
 def play
     @game = Game.new
     @game.view_word
+    @game.game_play
 end
 play
