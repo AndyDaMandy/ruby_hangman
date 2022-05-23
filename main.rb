@@ -50,6 +50,9 @@ class Game
                     end
                 end
                 puts "you picked: #{input}!"
+                @guess.push(input.downcase)
+                puts "Your guesses: #{@guess.join(" - ")}"
+                
         end
     end
 end
